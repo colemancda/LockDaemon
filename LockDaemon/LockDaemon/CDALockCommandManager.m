@@ -9,6 +9,7 @@
 #import "CDALockCommandManager.h"
 #import "CDALockDefines.h"
 #import "CDALockError.h"
+#import "CDAAuthenticationToken.h"
 
 @interface CDALockCommandManager ()
 
@@ -26,6 +27,7 @@
     if (self) {
         
         _requestQueue = dispatch_queue_create("CDALockCommandManager Request Queue", DISPATCH_QUEUE_SERIAL);
+        
         
     }
     return self;
@@ -58,12 +60,12 @@
     
     _secret = [[NSUserDefaults standardUserDefaults] stringForKey:CDALockSettingSecretKey];
     
-    _lockIdentifier = [[NSUserDefaults standardUserDefaults] stringForKey:CDALockSettingIdentifierKey];
+    _lockIdentifier = @([[NSUserDefaults standardUserDefaults] integerForKey:CDALockSettingIdentifierKey]);
     
     NSTimeInterval requestInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:CDALockSettingRequestIntervalKey];
     
     // missing info
-    if (_serverURL == nil || _secret == nil || _lockIdentifier == nil) {
+    if (_serverURL == nil || _secret == nil || _lockIdentifier == nil || !requestInterval) {
         
         *error = [NSError errorWithDomain:CDALockErrorDomain code:CDALockErrorCodeInvalidSettings
                                  userInfo:@{NSLocalizedDescriptionKey: @"Invalid or missing settings."}];
@@ -97,8 +99,6 @@
     
     _requestTimer = nil;
     
-    
-    
     self.isPolling = false;
     
     NSLog(@"Stopped polling server for lock commands");
@@ -108,13 +108,25 @@
 
 -(void)performRequest
 {
+    NSURL *serverURL = _serverURL;
+    
+    NSNumber *identifier = _lockIdentifier;
+    
+    NSString *secret = _secret;
+    
     dispatch_async(_requestQueue, ^{
       
         // cancel request if we arent polling anymore
-        if (self.isPolling) {
+        if (!self.isPolling) {
             
             return;
         }
+        
+        // build request
+        
+        NSURL *serverLockURL = [serverURL URLByAppendingPathComponent:@"lock"];
+        
+        NSString *dateString = [self.HTTPDateFormatter stringFromDate:[NSDate date]];
         
         
         

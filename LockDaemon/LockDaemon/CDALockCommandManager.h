@@ -21,13 +21,13 @@
     
     NSString *_secret;
     
-    NSString *_lockIdentifier;
+    NSNumber *_lockIdentifier;
 }
 
 #pragma mark - Properties
 
 /** Whether the manager is communicating with the server. */
-@property (readonly) BOOL isPolling;
+@property (atomic, readonly) BOOL isPolling;
 
 #pragma mark - Initialization
 
