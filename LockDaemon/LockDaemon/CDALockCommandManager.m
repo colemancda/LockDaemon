@@ -12,7 +12,7 @@
 
 @interface CDALockCommandManager ()
 
-@property (nonatomic) BOOL isPolling;
+@property BOOL isPolling;
 
 @end
 
@@ -25,7 +25,7 @@
     self = [super init];
     if (self) {
         
-        
+        _requestQueue = dispatch_queue_create("CDALockCommandManager Request Queue", DISPATCH_QUEUE_SERIAL);
         
     }
     return self;
@@ -45,6 +45,11 @@
 
 -(BOOL)startRequestsWithError:(NSError **)error
 {
+    if (self.isPolling) {
+        
+        return true;
+    }
+    
     // load server URL
     
     NSString *serverURLString = [[NSUserDefaults standardUserDefaults] stringForKey:CDALockSettingServerURLKey];
@@ -55,15 +60,26 @@
     
     _lockIdentifier = [[NSUserDefaults standardUserDefaults] stringForKey:CDALockSettingIdentifierKey];
     
+    NSTimeInterval requestInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:CDALockSettingRequestIntervalKey];
+    
     // missing info
     if (_serverURL == nil || _secret == nil || _lockIdentifier == nil) {
         
-        *error = [NSError errorWithDomain:CDALockErrorDomain code:CDALockErrorCodeInvalidSettings userInfo:@{NSLocalizedDescriptionKey: @"Invalid or missing settings."}];
+        *error = [NSError errorWithDomain:CDALockErrorDomain code:CDALockErrorCodeInvalidSettings
+                                 userInfo:@{NSLocalizedDescriptionKey: @"Invalid or missing settings."}];
         
         return false;
     }
     
-    NSLog(@"Polling server for Lock commands...");
+    // create timer
+    
+    _requestTimer = [NSTimer scheduledTimerWithTimeInterval:requestInterval
+                                                     target:self
+                                                   selector:@selector(performRequest)
+                                                   userInfo:nil
+                                                    repeats:YES];
+    
+    NSLog(@"Polling server for lock commands every %.1f seconds...", requestInterval);
     
     self.isPolling = YES;
     
@@ -72,7 +88,16 @@
 
 -(void)stopRequests
 {
+    if (!self.isPolling) {
+        
+        return;
+    }
+    
     [_requestTimer invalidate];
+    
+    _requestTimer = nil;
+    
+    
     
     self.isPolling = false;
     
@@ -83,8 +108,17 @@
 
 -(void)performRequest
 {
-    
-    
+    dispatch_async(_requestQueue, ^{
+      
+        // cancel request if we arent polling anymore
+        if (self.isPolling) {
+            
+            return;
+        }
+        
+        
+        
+    });
 }
 
 @end

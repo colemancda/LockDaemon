@@ -17,3 +17,5 @@ NSString *const CDALockSettingServerURLKey = @"ServerURL";
 NSString *const CDALockSettingIdentifierKey = @"Identifier";
 
 NSString *const CDALockSettingSecretKey = @"Secret";
+
+NSString *const CDALockSettingRequestIntervalKey = @"RequestInterval";

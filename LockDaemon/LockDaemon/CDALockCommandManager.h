@@ -13,6 +13,8 @@
 {
     NSTimer *_requestTimer;
     
+    dispatch_queue_t _requestQueue;
+    
     // Cache
     
     NSURL *_serverURL;
@@ -25,7 +27,7 @@
 #pragma mark - Properties
 
 /** Whether the manager is communicating with the server. */
-@property (nonatomic, readonly) BOOL isPolling;
+@property (readonly) BOOL isPolling;
 
 #pragma mark - Initialization
 
