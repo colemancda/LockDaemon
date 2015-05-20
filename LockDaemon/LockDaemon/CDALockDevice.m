@@ -77,8 +77,4 @@
     return currentDevice;
 }
 
-#pragma mark - Custom Accessors
-
-
-
 @end

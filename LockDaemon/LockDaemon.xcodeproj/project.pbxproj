@@ -7,12 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E238B301B0CD967000D85EB /* LockInfo.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6E238B2E1B0CD8FB000D85EB /* LockInfo.plist */; };
 		6E5A25111B0CBB7500938B49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A25101B0CBB7500938B49 /* main.m */; };
 		6E5A25191B0CBD4700938B49 /* CDALockDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A25181B0CBD4700938B49 /* CDALockDevice.m */; };
 		6E5A251C1B0CC17D00938B49 /* CDALockDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6E238B2F1B0CD946000D85EB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "/library/application support/CDALockDaemon";
+			dstSubfolderSpec = 0;
+			files = (
+				6E238B301B0CD967000D85EB /* LockInfo.plist in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6E5A250B1B0CBB7500938B49 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -25,6 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6E238B2E1B0CD8FB000D85EB /* LockInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LockInfo.plist; sourceTree = "<group>"; };
 		6E5A250D1B0CBB7500938B49 /* LockDaemon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LockDaemon; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E5A25101B0CBB7500938B49 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6E5A25171B0CBD4700938B49 /* CDALockDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDALockDevice.h; sourceTree = "<group>"; };
@@ -44,6 +56,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E238B2D1B0CD8EA000D85EB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6E238B2E1B0CD8FB000D85EB /* LockInfo.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		6E5A25041B0CBB7500938B49 = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +88,7 @@
 				6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */,
 				6E5A25171B0CBD4700938B49 /* CDALockDevice.h */,
 				6E5A25181B0CBD4700938B49 /* CDALockDevice.m */,
+				6E238B2D1B0CD8EA000D85EB /* Supporting Files */,
 			);
 			path = LockDaemon;
 			sourceTree = "<group>";
@@ -82,6 +103,7 @@
 				6E5A25091B0CBB7500938B49 /* Sources */,
 				6E5A250A1B0CBB7500938B49 /* Frameworks */,
 				6E5A250B1B0CBB7500938B49 /* CopyFiles */,
+				6E238B2F1B0CD946000D85EB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -247,6 +269,7 @@
 				6E5A25161B0CBB7500938B49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
