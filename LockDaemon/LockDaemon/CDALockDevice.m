@@ -24,7 +24,7 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithCurrentDevice
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -57,22 +57,12 @@
     return self;
 }
 
-- (id)init
-{
-    [NSException raise:@"Wrong initialization method"
-                format:@"You cannot use %@ with %@, you have to use %@",
-     NSStringFromSelector(_cmd),
-     self,
-     NSStringFromSelector(@selector(currentDevice))];
-    return nil;
-}
-
 +(instancetype)currentDevice
 {
     static CDALockDevice *currentDevice = nil;
     @synchronized(self) {
         if (currentDevice == nil)
-            currentDevice = [[self alloc] initWithCurrentDevice];
+            currentDevice = [[self alloc] init];
     }
     return currentDevice;
 }
