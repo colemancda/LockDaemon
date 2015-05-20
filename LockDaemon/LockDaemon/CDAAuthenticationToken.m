@@ -7,6 +7,7 @@
 //
 
 #import "CDAAuthenticationToken.h"
+#import <openssl/hmac.h>
 
 @interface CDAAuthenticationToken ()
 
@@ -39,6 +40,14 @@
         self.context = context;
         
         // generate token
+        
+        NSString *stringToSign = [NSString stringWithFormat:@"%@%@%@", context.verb, context.path, context.dateString];
+        
+        // sign data
+        
+        unsigned char *hmac = HMAC(EVP_sha512(), secret.UTF8String, (int)secret.length, (const unsigned char)stringToSign.UTF8String, stringToSign.length, nil, nil);
+        
+        NSString *signedString = [NSString stringWithFormat:@"%s", hmac];
         
         
         

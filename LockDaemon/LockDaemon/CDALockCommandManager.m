@@ -15,6 +15,8 @@
 
 @property BOOL isPolling;
 
+@property (nonatomic) NSDateFormatter *HTTPDateFormatter;
+
 @end
 
 @implementation CDALockCommandManager
@@ -27,6 +29,10 @@
     if (self) {
         
         _requestQueue = dispatch_queue_create("CDALockCommandManager Request Queue", DISPATCH_QUEUE_SERIAL);
+        
+        self.HTTPDateFormatter = [[NSDateFormatter alloc] init];
+        
+        self.HTTPDateFormatter.dateFormat = @"EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz";
         
         
     }
@@ -126,7 +132,17 @@
         
         NSURL *serverLockURL = [serverURL URLByAppendingPathComponent:@"lock"];
         
-        NSString *dateString = [self.HTTPDateFormatter stringFromDate:[NSDate date]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:serverLockURL];
+        
+        [request addValue:[[self HTTPDateFormatter] stringFromDate:[NSDate date]] forHTTPHeaderField:@"Date"];
+        
+        CDAAuthenticationContext *authenticationContext = [[CDAAuthenticationContext alloc] initWithURLRequest:request];
+        
+        CDAAuthenticationToken *authenticationToken = [[CDAAuthenticationToken alloc] initWithIdentifier:identifier.integerValue secret:secret context:authenticationContext];
+        
+        [request addValue:authenticationToken.token forHTTPHeaderField:@"Authentication"];
+        
+        // perform request
         
         
         
