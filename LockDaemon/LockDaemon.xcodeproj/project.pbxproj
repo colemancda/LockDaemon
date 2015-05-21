@@ -14,6 +14,8 @@
 		6E5A25111B0CBB7500938B49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A25101B0CBB7500938B49 /* main.m */; };
 		6E5A25191B0CBD4700938B49 /* CDALockDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A25181B0CBD4700938B49 /* CDALockDevice.m */; };
 		6E5A251C1B0CC17D00938B49 /* CDALockDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */; };
+		6EF9B5081B0E14DE005E5840 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF9B5071B0E14DE005E5840 /* libssl.dylib */; };
+		6EF9B50B1B0E153A005E5840 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF9B50A1B0E153A005E5840 /* libcrypto.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +54,8 @@
 		6E5A25181B0CBD4700938B49 /* CDALockDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockDevice.m; sourceTree = "<group>"; };
 		6E5A251A1B0CC17D00938B49 /* CDALockDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDALockDefines.h; sourceTree = "<group>"; };
 		6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockDefines.m; sourceTree = "<group>"; };
+		6EF9B5071B0E14DE005E5840 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
+		6EF9B50A1B0E153A005E5840 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EF9B50B1B0E153A005E5840 /* libcrypto.dylib in Frameworks */,
+				6EF9B5081B0E14DE005E5840 /* libssl.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +97,7 @@
 		6E5A25041B0CBB7500938B49 = {
 			isa = PBXGroup;
 			children = (
+				6EF9B5091B0E14E3005E5840 /* Frameworks */,
 				6E5A250F1B0CBB7500938B49 /* LockDaemon */,
 				6E5A250E1B0CBB7500938B49 /* Products */,
 			);
@@ -122,6 +129,15 @@
 				6E238B2D1B0CD8EA000D85EB /* Supporting Files */,
 			);
 			path = LockDaemon;
+			sourceTree = "<group>";
+		};
+		6EF9B5091B0E14E3005E5840 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6EF9B50A1B0E153A005E5840 /* libcrypto.dylib */,
+				6EF9B5071B0E14DE005E5840 /* libssl.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

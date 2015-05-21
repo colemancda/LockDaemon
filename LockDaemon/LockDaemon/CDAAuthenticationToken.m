@@ -45,10 +45,18 @@
         
         // sign data
         
-        unsigned char *hmac = HMAC(EVP_sha512(), secret.UTF8String, (int)secret.length, (const unsigned char)stringToSign.UTF8String, stringToSign.length, nil, nil);
+        unsigned char *result;
+        unsigned int resultLength =
         
-        NSString *signedString = [NSString stringWithFormat:@"%s", hmac];
+        HMAC_CTX hmac;
         
+        HMAC_CTX_init(&hmac);
+        
+        HMAC_Init_ex(&hmac, secret.UTF8String, (int)secret.length, EVP_sha512(), NULL);
+        
+        HMAC_Update(&hmac, (unsigned char*)stringToSign.UTF8String, (int)stringToSign.length);
+        
+        HMAC_Final(&hmac, <#unsigned char *md#>, <#unsigned int *len#>)
         
         
     }
