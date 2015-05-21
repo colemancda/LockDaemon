@@ -22,6 +22,8 @@
     NSString *_secret;
     
     NSNumber *_lockIdentifier;
+    
+    NSTimeInterval _requestInterval;
 }
 
 #pragma mark - Properties

@@ -68,10 +68,10 @@
     
     _lockIdentifier = @([[NSUserDefaults standardUserDefaults] integerForKey:CDALockSettingIdentifierKey]);
     
-    NSTimeInterval requestInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:CDALockSettingRequestIntervalKey];
+    _requestInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:CDALockSettingRequestIntervalKey];
     
     // missing info
-    if (_serverURL == nil || _secret == nil || _lockIdentifier == nil || !requestInterval) {
+    if (_serverURL == nil || _secret == nil || _lockIdentifier == nil || !_requestInterval) {
         
         *error = [NSError errorWithDomain:CDALockErrorDomain code:CDALockErrorCodeInvalidSettings
                                  userInfo:@{NSLocalizedDescriptionKey: @"Invalid or missing settings."}];
@@ -81,13 +81,13 @@
     
     // create timer
     
-    _requestTimer = [NSTimer scheduledTimerWithTimeInterval:requestInterval
+    _requestTimer = [NSTimer scheduledTimerWithTimeInterval:_requestInterval
                                                      target:self
                                                    selector:@selector(performRequest)
                                                    userInfo:nil
                                                     repeats:YES];
     
-    NSLog(@"Polling server for lock commands every %.1f seconds...", requestInterval);
+    NSLog(@"Polling server for lock commands every %.1f seconds...", _requestInterval);
     
     self.isPolling = YES;
     
@@ -142,11 +142,45 @@
         
         [request addValue:authenticationToken.token forHTTPHeaderField:@"Authentication"];
         
+        request.timeoutInterval = _requestInterval;
+        
         // perform request
         
         // NSLog(@"Authentication Token: %@", authenticationToken.token);
         
+        NSError *requestError;
+        
+        NSURLResponse *response;
+        
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&requestError];
+        
+        if (requestError != nil) {
+            
+            NSLog(@"Could not fetch lock commands from server. (%@)", requestError);
+            
+            return;
+        }
+        
+        NSError *parseError;
+        
+        NSArray *lockCommands = [self parseServerResponse:response data:data error:&parseError];
+        
+        if (parseError != nil) {
+            
+            NSLog(@"Could not fetch lock commands from server. (%@)", parseError.localizedDescription);
+            
+            return;
+        }
+        
+        
+        
     });
+}
+
+-(NSArray *)parseServerResponse:(NSURLResponse *)serverResponse data:(NSData *)data error:(NSError **)error
+{
+    
+    
 }
 
 @end

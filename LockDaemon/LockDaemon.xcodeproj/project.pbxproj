@@ -14,6 +14,7 @@
 		6E5A25111B0CBB7500938B49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A25101B0CBB7500938B49 /* main.m */; };
 		6E5A25191B0CBD4700938B49 /* CDALockDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A25181B0CBD4700938B49 /* CDALockDevice.m */; };
 		6E5A251C1B0CC17D00938B49 /* CDALockDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */; };
+		6EDA05621B0E8745006E8990 /* CDALockCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA05611B0E8745006E8990 /* CDALockCommand.m */; };
 		6EF9B5081B0E14DE005E5840 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF9B5071B0E14DE005E5840 /* libssl.dylib */; };
 		6EF9B50B1B0E153A005E5840 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF9B50A1B0E153A005E5840 /* libcrypto.dylib */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,8 @@
 		6E5A25181B0CBD4700938B49 /* CDALockDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockDevice.m; sourceTree = "<group>"; };
 		6E5A251A1B0CC17D00938B49 /* CDALockDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDALockDefines.h; sourceTree = "<group>"; };
 		6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockDefines.m; sourceTree = "<group>"; };
+		6EDA05601B0E8745006E8990 /* CDALockCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDALockCommand.h; sourceTree = "<group>"; };
+		6EDA05611B0E8745006E8990 /* CDALockCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockCommand.m; sourceTree = "<group>"; };
 		6EF9B5071B0E14DE005E5840 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		6EF9B50A1B0E153A005E5840 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -125,10 +128,20 @@
 				6E238B341B0CDB62000D85EB /* CDALockCommandManager.m */,
 				6E238B571B0D0F70000D85EB /* CDAAuthenticationToken.h */,
 				6E238B581B0D0F70000D85EB /* CDAAuthenticationToken.m */,
+				6EDA055F1B0E86DB006E8990 /* Model */,
 				6E238B391B0CE762000D85EB /* Model */,
 				6E238B2D1B0CD8EA000D85EB /* Supporting Files */,
 			);
 			path = LockDaemon;
+			sourceTree = "<group>";
+		};
+		6EDA055F1B0E86DB006E8990 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA05601B0E8745006E8990 /* CDALockCommand.h */,
+				6EDA05611B0E8745006E8990 /* CDALockCommand.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		6EF9B5091B0E14E3005E5840 /* Frameworks */ = {
@@ -201,6 +214,7 @@
 				6E238B381B0CE294000D85EB /* CDALockError.m in Sources */,
 				6E238B351B0CDB62000D85EB /* CDALockCommandManager.m in Sources */,
 				6E5A25191B0CBD4700938B49 /* CDALockDevice.m in Sources */,
+				6EDA05621B0E8745006E8990 /* CDALockCommand.m in Sources */,
 				6E238B591B0D0F70000D85EB /* CDAAuthenticationToken.m in Sources */,
 				6E5A251C1B0CC17D00938B49 /* CDALockDefines.m in Sources */,
 			);
