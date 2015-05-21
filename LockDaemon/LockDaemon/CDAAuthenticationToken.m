@@ -45,20 +45,22 @@
         
         // sign data
         
-        unsigned char *result;
-        unsigned int resultLength =
+        unsigned int resultLength = HMAC_MAX_MD_CBLOCK;
         
-        HMAC_CTX hmac;
+        unsigned char *result = (unsigned char*)malloc(sizeof(char) * resultLength);
         
-        HMAC_CTX_init(&hmac);
+        HMAC(EVP_sha512(), secret.UTF8String, (int)strlen(secret.UTF8String), (const unsigned char*)stringToSign.UTF8String, strlen(stringToSign.UTF8String), result, &resultLength);
         
-        HMAC_Init_ex(&hmac, secret.UTF8String, (int)secret.length, EVP_sha512(), NULL);
+        NSData *signedStringData = [NSData dataWithBytesNoCopy:result length:HMAC_MAX_MD_CBLOCK freeWhenDone:true];
         
-        HMAC_Update(&hmac, (unsigned char*)stringToSign.UTF8String, (int)stringToSign.length);
+        NSString *signature = [signedStringData base64EncodedStringWithOptions:0];
         
-        HMAC_Final(&hmac, <#unsigned char *md#>, <#unsigned int *len#>)
+        NSDictionary *authorizationHeaderJSON = @{[NSString stringWithFormat:@"%ld", identifier] : signature};
         
+        NSData *authorizationHeaderJSONData = [NSJSONSerialization dataWithJSONObject:authorizationHeaderJSON options:0 error:nil];
         
+        // create token
+        self.token = [[NSString alloc] initWithData:authorizationHeaderJSONData encoding:NSUTF8StringEncoding];
     }
     return self;
 }

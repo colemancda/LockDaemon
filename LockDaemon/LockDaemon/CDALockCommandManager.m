@@ -144,7 +144,7 @@
         
         // perform request
         
-        
+        // NSLog(@"Authentication Token: %@", authenticationToken.token);
         
     });
 }
