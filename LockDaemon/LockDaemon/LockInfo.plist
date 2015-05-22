@@ -5,6 +5,6 @@
 	<key>LockModel</key>
 	<string>Simulator</string>
 	<key>FirmwareVersion</key>
-	<string>100</string>
+	<integer>100</integer>
 </dict>
 </plist>

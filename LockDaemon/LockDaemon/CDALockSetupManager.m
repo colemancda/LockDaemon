@@ -27,6 +27,34 @@
 
 #pragma mark - Setup Mode
 
+-(BOOL)enableSetupModeWithError:(NSError *)error
+{
+#ifdef TARGET_OS_MAC
+    
+    NSLog(@"Simulating enabling Setup mode.");
+    
+    return YES;
+    
+#endif
+    
+    
+    
+    return YES;
+}
 
+-(BOOL)disableSetupModeWithError:(NSError *)error
+{
+#ifdef TARGET_OS_MAC
+    
+    NSLog(@"Simulating disabling Setup mode.");
+    
+    return YES;
+    
+#endif
+    
+    
+    
+    return YES;
+}
 
 @end

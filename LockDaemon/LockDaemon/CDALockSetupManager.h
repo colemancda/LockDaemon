@@ -8,19 +8,31 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol CDALockSetupManagerDelegate;
+
 /** Manages configuration of the Lock. */
 @interface CDALockSetupManager : NSObject
 
-/**  */
-@property (atomic, readonly) BOOL setupModeEnabled;
+/** Whether setup mode is enabled. */
+@property (atomic, readonly) BOOL isSetupModeEnabled;
+
+/** Whether the settings have been fully configured. */
+@property (atomic, readonly) BOOL isConfigured;
 
 #pragma mark - Methods
 
+/** Enabled setup mode. Turns lock into Wi-Fi access point and runs setup server. Once values are set, setup mode is automatically disabled. */
 -(BOOL)enableSetupModeWithError:(NSError *)error;
 
--(void)disableSetupModeWithError:(NSError *)error;
+-(BOOL)disableSetupModeWithError:(NSError *)error;
 
 /** Fetches the value for the setting. */
 -(id)valueForSetting:(NSString *)key;
+
+@end
+
+@protocol CDALockSetupManagerDelegate <NSObject>
+
+-(void)setupManager:(CDALockSetupManager *)setupManager didFinishSetupWithError:(NSError *)error;
 
 @end

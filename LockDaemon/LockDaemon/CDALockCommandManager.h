@@ -39,11 +39,6 @@
 /** The lock's resourceID. Used for authentication. */
 @property (nonatomic) NSNumber *lockIdentifier;
 
-#pragma mark - Initialization
-
-/** The singleton manager. */
-+(instancetype)sharedManager;
-
 #pragma mark - Methods
 
 /** Asks the manager to start to connecting to the server. */

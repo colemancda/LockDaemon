@@ -17,7 +17,7 @@
 @property (nonatomic, readonly) NSString *model;
 
 /* String representing the firmware version of the lock. */
-@property (nonatomic, readonly) NSString *firmwareVersion;
+@property (nonatomic, readonly) NSNumber *firmwareVersion;
 
 #pragma mark - Initialization
 

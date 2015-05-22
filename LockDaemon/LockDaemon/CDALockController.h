@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CDALockSetupManager.h"
 #import "CDALockCommandManager.h"
 
 /** Main controller for the lock. */
-@interface CDALockController : NSObject <CDALockCommandManagerDelegate>
+@interface CDALockController : NSObject <CDALockCommandManagerDelegate, CDALockSetupManagerDelegate>
+
+#pragma mark - Properties
 
 @property (nonatomic) CDALockSetupManager *setupManager;
 

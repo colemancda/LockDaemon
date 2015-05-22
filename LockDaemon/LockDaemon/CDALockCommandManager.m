@@ -40,17 +40,6 @@
     return self;
 }
 
-+(instancetype)sharedManager
-{
-    static CDALockCommandManager *sharedManager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedManager = [[self alloc] init];
-    });
-    
-    return sharedManager;
-}
-
 #pragma mark - Methods
 
 -(BOOL)startRequestsWithError:(NSError *__autoreleasing *)error
@@ -103,11 +92,13 @@
 
 -(void)performRequest
 {
-    NSURL *serverURL = _serverURL;
+    NSURL *serverURL = self.serverURL;
     
-    NSNumber *identifier = _lockIdentifier;
+    NSNumber *identifier = self.lockIdentifier;
     
-    NSString *secret = _secret;
+    NSString *secret = self.secret;
+    
+    NSTimeInterval requestInterval = self.requestInterval;
     
     dispatch_async(_requestQueue, ^{
       
@@ -117,46 +108,13 @@
             return;
         }
         
-        // build request
+        NSError *fetchCommandError;
         
-        NSURL *serverLockURL = [serverURL URLByAppendingPathComponent:@"lock"];
+        CDALockCommand *command = [self fetchLockCommandWithServerURL:serverURL lockIdentifier:identifier.integerValue secret:secret timeoutInterval:requestInterval error:&fetchCommandError];
         
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:serverLockURL];
-        
-        [request addValue:[[self HTTPDateFormatter] stringFromDate:[NSDate date]] forHTTPHeaderField:@"Date"];
-        
-        CDAAuthenticationContext *authenticationContext = [[CDAAuthenticationContext alloc] initWithURLRequest:request];
-        
-        CDAAuthenticationToken *authenticationToken = [[CDAAuthenticationToken alloc] initWithIdentifier:identifier.integerValue secret:secret context:authenticationContext];
-        
-        [request addValue:authenticationToken.token forHTTPHeaderField:@"Authentication"];
-        
-        request.timeoutInterval = _requestInterval;
-        
-        // perform request
-        
-        // NSLog(@"Authentication Token: %@", authenticationToken.token);
-        
-        NSError *requestError;
-        
-        NSURLResponse *response;
-        
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&requestError];
-        
-        if (requestError != nil) {
+        if (fetchCommandError != nil) {
             
-            NSLog(@"Could not fetch lock commands from server. (%@)", requestError);
-            
-            return;
-        }
-        
-        NSError *parseError;
-        
-        NSArray *lockCommands = [self parseServerResponse:response data:data error:&parseError];
-        
-        if (parseError != nil) {
-            
-            NSLog(@"Could not fetch lock commands from server. (%@)", parseError);
+            [self.delegate lockCommandManager:self didEncounterError:fetchCommandError];
             
             return;
         }
@@ -166,7 +124,52 @@
     });
 }
 
--(CDALockCommand *)fetchLockCommandWithServerURL:(NSURL *)serverURL
+-(CDALockCommand *)fetchLockCommandWithServerURL:(NSURL *)serverURL lockIdentifier:(NSUInteger)lockIdentifier secret:(NSString *)secret timeoutInterval:(NSTimeInterval)timeoutInterval error:(NSError **)error
+{
+    // build request
+    
+    NSURL *serverLockURL = [serverURL URLByAppendingPathComponent:@"lock"];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:serverLockURL];
+    
+    [request addValue:[[self HTTPDateFormatter] stringFromDate:[NSDate date]] forHTTPHeaderField:@"Date"];
+    
+    CDAAuthenticationContext *authenticationContext = [[CDAAuthenticationContext alloc] initWithURLRequest:request];
+    
+    CDAAuthenticationToken *authenticationToken = [[CDAAuthenticationToken alloc] initWithIdentifier:identifier.integerValue secret:secret context:authenticationContext];
+    
+    [request addValue:authenticationToken.token forHTTPHeaderField:@"Authentication"];
+    
+    request.timeoutInterval = timeout;
+    
+    // perform request
+    
+    NSError *requestError;
+    
+    NSURLResponse *response;
+    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&requestError];
+    
+    if (requestError != nil) {
+        
+        NSLog(@"Could not fetch lock commands from server. (%@)", requestError);
+        
+        return;
+    }
+    
+    NSError *parseError;
+    
+    NSArray *lockCommands = [self parseServerResponse:response data:data error:&parseError];
+    
+    if (parseError != nil) {
+        
+        NSLog(@"Could not fetch lock commands from server. (%@)", parseError);
+        
+        return;
+    }
+    
+
+}
 
 -(NSArray *)parseServerResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError **)error
 {

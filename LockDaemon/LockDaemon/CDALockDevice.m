@@ -12,7 +12,7 @@
 
 @property (nonatomic) NSString *model;
 
-@property (nonatomic) NSString *firmwareVersion;
+@property (nonatomic) NSNumber *firmwareVersion;
 
 @property (nonatomic) NSString *lockInfoPath;
 

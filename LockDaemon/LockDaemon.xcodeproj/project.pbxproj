@@ -33,15 +33,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6E5A250B1B0CBB7500938B49 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -193,7 +184,6 @@
 			buildPhases = (
 				6E5A25091B0CBB7500938B49 /* Sources */,
 				6E5A250A1B0CBB7500938B49 /* Frameworks */,
-				6E5A250B1B0CBB7500938B49 /* CopyFiles */,
 				6E238B2F1B0CD946000D85EB /* CopyFiles */,
 			);
 			buildRules = (
