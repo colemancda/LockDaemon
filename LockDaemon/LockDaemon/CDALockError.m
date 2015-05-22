@@ -9,3 +9,4 @@
 #import <Foundation/Foundation.h>
 
 NSString *const CDALockErrorDomain = @"com.ColemanCDA.LockDaemon.ErrorDomain";
+

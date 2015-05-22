@@ -41,12 +41,13 @@
 
 +(instancetype)sharedManager
 {
-    static CDALockCommandManager *sharedInstance = nil;
-    @synchronized(self) {
-        if (sharedInstance == nil)
-            sharedInstance = [[self alloc] init];
-    }
-    return sharedInstance;
+    static CDALockCommandManager *sharedManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedManager = [[self alloc] init];
+    });
+    
+    return sharedManager;
 }
 
 #pragma mark - Methods
@@ -167,7 +168,7 @@
         
         if (parseError != nil) {
             
-            NSLog(@"Could not fetch lock commands from server. (%@)", parseError.localizedDescription);
+            NSLog(@"Could not fetch lock commands from server. (%@)", parseError);
             
             return;
         }
@@ -177,10 +178,34 @@
     });
 }
 
--(NSArray *)parseServerResponse:(NSURLResponse *)serverResponse data:(NSData *)data error:(NSError **)error
+-(CDALockCommand *)fetchLockCommandWithServerURL:(NSURL *)serverURL
+
+-(NSArray *)parseServerResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError **)error
 {
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    
+    if ([httpResponse isKindOfClass:[NSHTTPURLResponse class]]) {
+        
+        
+        
+        return nil;
+    }
+    
+    if (httpResponse.statusCode != 200) {
+        
+        *error = [NSError errorWithDomain:CDALockErrorDomain code:CDALockErrorCodeInvalidServerStatusCode userInfo:@{NSLocalizedDescriptionKey: @"Invalid status code returned from server.", CDALockServerStatusCodeKey: [NSNumber numberWithInteger:httpResponse.statusCode]}];
+        
+        return nil;
+    }
+    
     
     
 }
 
+#pragma mark - Error Generators
+
+-(NSError *)invalidStatusCode
+
 @end
+
+

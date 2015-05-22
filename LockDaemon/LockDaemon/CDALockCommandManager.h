@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class CDALockCommand;
+@protocol CDALockCommandManagerDelegate;
+
 /** Manages the communication with the server. */
 @interface CDALockCommandManager : NSObject
 {
@@ -28,6 +31,9 @@
 
 #pragma mark - Properties
 
+/** Manager's delegate. */
+@property (nonatomic) id<CDALockCommandManagerDelegate> delegate;
+
 /** Whether the manager is communicating with the server. */
 @property (atomic, readonly) BOOL isPolling;
 
@@ -43,5 +49,13 @@
 
 /** Stops communication with the server. */
 -(void)stopRequests;
+
+@end
+
+@protocol CDALockCommandManagerDelegate <NSObject>
+
+-(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager didRecieveLockCommand:(CDALockCommand *)lockCommand;
+
+-(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager didEncounterError:(NSError *)error;
 
 @end

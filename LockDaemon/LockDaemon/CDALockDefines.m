@@ -19,3 +19,7 @@ NSString *const CDALockSettingIdentifierKey = @"Identifier";
 NSString *const CDALockSettingSecretKey = @"Secret";
 
 NSString *const CDALockSettingRequestIntervalKey = @"RequestInterval";
+
+// Misc Keys
+
+NSString *const CDALockServerStatusCodeKey = @"ServerStatusCode";

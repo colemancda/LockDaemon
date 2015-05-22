@@ -33,6 +33,8 @@ int main(int argc, const char * argv[]) {
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaults];
         
+        [CDALockCommandManager sharedManager].delegate = self;
+        
         // try starting the command manager
         
         NSError *startPollingError;

@@ -60,10 +60,12 @@
 +(instancetype)currentDevice
 {
     static CDALockDevice *currentDevice = nil;
-    @synchronized(self) {
-        if (currentDevice == nil)
-            currentDevice = [[self alloc] init];
-    }
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        currentDevice = [[self alloc] init];
+    });
+    
     return currentDevice;
 }
 

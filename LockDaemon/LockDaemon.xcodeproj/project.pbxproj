@@ -15,6 +15,7 @@
 		6E5A25191B0CBD4700938B49 /* CDALockDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A25181B0CBD4700938B49 /* CDALockDevice.m */; };
 		6E5A251C1B0CC17D00938B49 /* CDALockDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */; };
 		6EDA05621B0E8745006E8990 /* CDALockCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA05611B0E8745006E8990 /* CDALockCommand.m */; };
+		6EDA05651B0F5DCE006E8990 /* CDALockErrorPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA05641B0F5DCE006E8990 /* CDALockErrorPrivate.m */; };
 		6EF9B5081B0E14DE005E5840 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF9B5071B0E14DE005E5840 /* libssl.dylib */; };
 		6EF9B50B1B0E153A005E5840 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF9B50A1B0E153A005E5840 /* libcrypto.dylib */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,8 @@
 		6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockDefines.m; sourceTree = "<group>"; };
 		6EDA05601B0E8745006E8990 /* CDALockCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDALockCommand.h; sourceTree = "<group>"; };
 		6EDA05611B0E8745006E8990 /* CDALockCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockCommand.m; sourceTree = "<group>"; };
+		6EDA05631B0F5DCE006E8990 /* CDALockErrorPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDALockErrorPrivate.h; sourceTree = "<group>"; };
+		6EDA05641B0F5DCE006E8990 /* CDALockErrorPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockErrorPrivate.m; sourceTree = "<group>"; };
 		6EF9B5071B0E14DE005E5840 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		6EF9B50A1B0E153A005E5840 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -90,13 +93,6 @@
 			name = Simulator;
 			sourceTree = "<group>";
 		};
-		6E238B391B0CE762000D85EB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		6E5A25041B0CBB7500938B49 = {
 			isa = PBXGroup;
 			children = (
@@ -118,18 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				6E5A25101B0CBB7500938B49 /* main.m */,
-				6E5A251A1B0CC17D00938B49 /* CDALockDefines.h */,
-				6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */,
-				6E238B361B0CDF45000D85EB /* CDALockError.h */,
-				6E238B371B0CE294000D85EB /* CDALockError.m */,
-				6E5A25171B0CBD4700938B49 /* CDALockDevice.h */,
-				6E5A25181B0CBD4700938B49 /* CDALockDevice.m */,
-				6E238B331B0CDB62000D85EB /* CDALockCommandManager.h */,
-				6E238B341B0CDB62000D85EB /* CDALockCommandManager.m */,
-				6E238B571B0D0F70000D85EB /* CDAAuthenticationToken.h */,
-				6E238B581B0D0F70000D85EB /* CDAAuthenticationToken.m */,
-				6EDA055F1B0E86DB006E8990 /* Model */,
-				6E238B391B0CE762000D85EB /* Model */,
+				6EDA05661B0F66FF006E8990 /* CoreLock */,
 				6E238B2D1B0CD8EA000D85EB /* Supporting Files */,
 			);
 			path = LockDaemon;
@@ -142,6 +127,26 @@
 				6EDA05611B0E8745006E8990 /* CDALockCommand.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		6EDA05661B0F66FF006E8990 /* CoreLock */ = {
+			isa = PBXGroup;
+			children = (
+				6E5A251A1B0CC17D00938B49 /* CDALockDefines.h */,
+				6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */,
+				6E238B361B0CDF45000D85EB /* CDALockError.h */,
+				6E238B371B0CE294000D85EB /* CDALockError.m */,
+				6EDA05631B0F5DCE006E8990 /* CDALockErrorPrivate.h */,
+				6EDA05641B0F5DCE006E8990 /* CDALockErrorPrivate.m */,
+				6E5A25171B0CBD4700938B49 /* CDALockDevice.h */,
+				6E5A25181B0CBD4700938B49 /* CDALockDevice.m */,
+				6E238B331B0CDB62000D85EB /* CDALockCommandManager.h */,
+				6E238B341B0CDB62000D85EB /* CDALockCommandManager.m */,
+				6E238B571B0D0F70000D85EB /* CDAAuthenticationToken.h */,
+				6E238B581B0D0F70000D85EB /* CDAAuthenticationToken.m */,
+				6EDA055F1B0E86DB006E8990 /* Model */,
+			);
+			name = CoreLock;
 			sourceTree = "<group>";
 		};
 		6EF9B5091B0E14E3005E5840 /* Frameworks */ = {
@@ -216,6 +221,7 @@
 				6E5A25191B0CBD4700938B49 /* CDALockDevice.m in Sources */,
 				6EDA05621B0E8745006E8990 /* CDALockCommand.m in Sources */,
 				6E238B591B0D0F70000D85EB /* CDAAuthenticationToken.m in Sources */,
+				6EDA05651B0F5DCE006E8990 /* CDALockErrorPrivate.m in Sources */,
 				6E5A251C1B0CC17D00938B49 /* CDALockDefines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

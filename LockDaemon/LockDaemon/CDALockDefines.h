@@ -24,3 +24,8 @@ FOUNDATION_EXPORT NSString *const CDALockSettingSecretKey;
 
 /** The interval for the requests to the server. Value is a double. */
 FOUNDATION_EXPORT NSString *const CDALockSettingRequestIntervalKey;
+
+// Misc Keys
+
+/** The key for a server status code. */
+FOUNDATION_EXPORT NSString *const CDALockServerStatusCodeKey;

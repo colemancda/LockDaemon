@@ -18,6 +18,12 @@ typedef enum : NSUInteger {
     CDALockErrorCodeUnkown,
     
     /** Settings is missing values or the values stored are invalid. */
-    CDALockErrorCodeInvalidSettings
+    CDALockErrorCodeInvalidSettings,
+    
+    /** Server returned a status code other than 200. */
+    CDALockErrorCodeInvalidServerStatusCode,
+    
+    /** Server returned a response that could not be parsed. */
+    CDALockErrorCodeInvalidServerResponse
     
 } CDALockErrorCode;
