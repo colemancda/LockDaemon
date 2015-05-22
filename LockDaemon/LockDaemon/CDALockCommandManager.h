@@ -17,16 +17,6 @@
     NSTimer *_requestTimer;
     
     dispatch_queue_t _requestQueue;
-    
-    // Cache
-    
-    NSURL *_serverURL;
-    
-    NSString *_secret;
-    
-    NSNumber *_lockIdentifier;
-    
-    NSTimeInterval _requestInterval;
 }
 
 #pragma mark - Properties
@@ -36,6 +26,18 @@
 
 /** Whether the manager is communicating with the server. */
 @property (atomic, readonly) BOOL isPolling;
+
+/** The interval between requests from the server. */
+@property (nonatomic) NSTimeInterval requestInterval;
+
+/** The URL that will be used to fetch commands from the server. */
+@property (nonatomic) NSURL *serverURL;
+
+/** The lock's secret. Used for authentication. */
+@property (nonatomic) NSString *secret;
+
+/** The lock's resourceID. Used for authentication. */
+@property (nonatomic) NSNumber *lockIdentifier;
 
 #pragma mark - Initialization
 

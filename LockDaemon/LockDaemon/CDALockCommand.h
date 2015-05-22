@@ -11,8 +11,14 @@
 /** Model object representing a lock command. */
 @interface CDALockCommand : NSObject
 
-@property (nonatomic, readonly) NSDate *date;
+#pragma mark - Properties
 
-@property (nonatomic, readonly) 
+@property (nonatomic, readonly) BOOL shouldUnlock;
+
+@property (nonatomic, readonly) BOOL shouldUpdate;
+
+#pragma mark - Initialization
+
+-(instancetype)initWithJSONObject:(NSDictionary *)jsonObject;
 
 @end

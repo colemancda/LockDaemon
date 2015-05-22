@@ -10,4 +10,17 @@
 
 @implementation CDALockCommand
 
+#pragma mark - Initialization
+
+-(instancetype)initWithJSONObject:(NSDictionary *)jsonObject
+{
+    self = [super init];
+    if (self) {
+        
+        
+        
+    }
+    return self;
+}
+
 @end

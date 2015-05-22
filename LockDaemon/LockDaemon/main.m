@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CDALockDefines.h"
 #import "CDALockDevice.h"
-#import "CDALockCommandManager.h"
+#import "CDALockController.h"
 
 int main(int argc, const char * argv[]) {
     
@@ -33,14 +33,9 @@ int main(int argc, const char * argv[]) {
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaults];
         
-        [CDALockCommandManager sharedManager].delegate = self;
+        // start lock controller
         
-        // try starting the command manager
-        
-        NSError *startPollingError;
-        
-        [[CDALockCommandManager sharedManager] startRequestsWithError:&startPollingError];
-        
+        [CDALockController sharedController];
     }
     
     [[NSRunLoop currentRunLoop] run];

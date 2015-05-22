@@ -24,6 +24,9 @@ typedef enum : NSUInteger {
     CDALockErrorCodeInvalidServerStatusCode,
     
     /** Server returned a response that could not be parsed. */
-    CDALockErrorCodeInvalidServerResponse
+    CDALockErrorCodeInvalidServerResponse,
+    
+    /** There was an error communicating with the hardware. */
+    CDALockErrorCodeHardwareError
     
 } CDALockErrorCode;

@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>80AFCA62-D423-4197-9B84-316235584297</string>
 	<key>IDESourceControlProjectName</key>
-	<string>LockDaemon</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>5B969930CF47269C33E31105E54332110CABEB7F</key>
 		<string>https://github.com/colemancda/LockDaemon.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>LockDaemon/LockDaemon.xcodeproj</string>
+	<string>LockDaemon/LockDaemon.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>5B969930CF47269C33E31105E54332110CABEB7F</key>

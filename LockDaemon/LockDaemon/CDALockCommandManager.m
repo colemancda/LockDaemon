@@ -10,6 +10,7 @@
 #import "CDALockDefines.h"
 #import "CDALockError.h"
 #import "CDAAuthenticationToken.h"
+#import "CDALockErrorPrivate.h"
 
 @interface CDALockCommandManager ()
 
@@ -28,7 +29,7 @@
     self = [super init];
     if (self) {
         
-        _requestQueue = dispatch_queue_create("CDALockCommandManager Request Queue", DISPATCH_QUEUE_SERIAL);
+        _requestQueue = dispatch_queue_create("CDALockCommandManager Request Queue", DISPATCH_QUEUE_CONCURRENT);
         
         self.HTTPDateFormatter = [[NSDateFormatter alloc] init];
         
@@ -52,30 +53,17 @@
 
 #pragma mark - Methods
 
--(BOOL)startRequestsWithError:(NSError **)error
+-(BOOL)startRequestsWithError:(NSError *__autoreleasing *)error
 {
     if (self.isPolling) {
         
         return true;
     }
     
-    // load server URL
-    
-    NSString *serverURLString = [[NSUserDefaults standardUserDefaults] stringForKey:CDALockSettingServerURLKey];
-    
-    _serverURL = [NSURL URLWithString:serverURLString];
-    
-    _secret = [[NSUserDefaults standardUserDefaults] stringForKey:CDALockSettingSecretKey];
-    
-    _lockIdentifier = @([[NSUserDefaults standardUserDefaults] integerForKey:CDALockSettingIdentifierKey]);
-    
-    _requestInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:CDALockSettingRequestIntervalKey];
-    
     // missing info
     if (_serverURL == nil || _secret == nil || _lockIdentifier == nil || !_requestInterval) {
         
-        *error = [NSError errorWithDomain:CDALockErrorDomain code:CDALockErrorCodeInvalidSettings
-                                 userInfo:@{NSLocalizedDescriptionKey: @"Invalid or missing settings."}];
+        *error = [NSError CDALockErrorWithErrorCode:CDALockErrorCodeInvalidSettings userInfo:nil];
         
         return false;
     }
