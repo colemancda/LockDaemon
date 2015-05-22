@@ -7,14 +7,51 @@
 //
 
 #import "CDALockSetupManager.h"
+#import "CDALockDefines.h"
 
 @interface CDALockSetupManager ()
 
-@property (atomic) BOOL setupModeEnabled;
+@property (nonatomic) BOOL isSetupModeEnabled;
+
+@property (nonatomic) BOOL isConfigured;
 
 @end
 
 @implementation CDALockSetupManager
+
+#pragma mark - Initialization
+
++ (void)initialize
+{
+    if (self == [CDALockSetupManager class]) {
+        
+        // register defaults
+        
+#ifdef TARGET_OS_MAC
+        
+        NSDictionary *userDefaults = @{CDALockSettingRequestIntervalKey: @1.0,
+                                       CDALockSettingIdentifierKey: @0,
+                                       CDALockSettingSecretKey: @"LockSecret1234",
+                                       CDALockSettingServerURLKey: @"http://localhost:8080"};
+        
+        [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaults];
+#endif
+        
+    }
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
+        self.isConfigured = [self settingsConfigured];
+        
+        
+        
+    }
+    return self;
+}
 
 #pragma mark - Setting Values
 
@@ -27,7 +64,7 @@
 
 #pragma mark - Setup Mode
 
--(BOOL)enableSetupModeWithError:(NSError *)error
+-(BOOL)enableSetupModeWithError:(NSError **)error
 {
 #ifdef TARGET_OS_MAC
     
@@ -42,7 +79,7 @@
     return YES;
 }
 
--(BOOL)disableSetupModeWithError:(NSError *)error
+-(BOOL)disableSetupModeWithError:(NSError **)error
 {
 #ifdef TARGET_OS_MAC
     
@@ -53,6 +90,26 @@
 #endif
     
     
+    
+    return YES;
+}
+
+#pragma mark - Private Methods
+
+/** Whether all of the required settings are loaded. */
+-(BOOL)settingsConfigured
+{
+    // load settings
+    
+    NSArray *settings = @[CDALockSettingIdentifierKey, CDALockSettingSecretKey, CDALockSettingRequestIntervalKey, CDALockSettingServerURLKey];
+    
+    for (NSString *settingKey in settings) {
+        
+        if (![self valueForSetting:settingKey]) {
+            
+            return NO;
+        }
+    }
     
     return YES;
 }

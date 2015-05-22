@@ -8,7 +8,7 @@
 
 #import "CDALockDefines.h"
 
-NSString *const CDALockDaemonVersion = @"0.1.0";
+NSString *const CDALockDaemonVersion = @"0.0.1";
 
 // Setting Keys
 

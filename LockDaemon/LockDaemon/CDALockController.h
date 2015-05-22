@@ -15,9 +15,9 @@
 
 #pragma mark - Properties
 
-@property (nonatomic) CDALockSetupManager *setupManager;
+@property (nonatomic, readonly) CDALockSetupManager *setupManager;
 
-@property (nonatomic) CDALockCommandManager *commandManager;
+@property (nonatomic, readonly) CDALockCommandManager *commandManager;
 
 #pragma mark - Initialization
 

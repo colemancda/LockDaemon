@@ -117,6 +117,15 @@
 			path = LockDaemon;
 			sourceTree = "<group>";
 		};
+		6E63C0D91B0FAB7C00F71C91 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA05631B0F5DCE006E8990 /* CDALockErrorPrivate.h */,
+				6EDA05641B0F5DCE006E8990 /* CDALockErrorPrivate.m */,
+			);
+			name = Private;
+			sourceTree = "<group>";
+		};
 		6EDA055F1B0E86DB006E8990 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,12 +143,11 @@
 		6EDA05661B0F66FF006E8990 /* CoreLock */ = {
 			isa = PBXGroup;
 			children = (
+				6E63C0D91B0FAB7C00F71C91 /* Private */,
 				6E5A251A1B0CC17D00938B49 /* CDALockDefines.h */,
 				6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */,
 				6E238B361B0CDF45000D85EB /* CDALockError.h */,
 				6E238B371B0CE294000D85EB /* CDALockError.m */,
-				6EDA05631B0F5DCE006E8990 /* CDALockErrorPrivate.h */,
-				6EDA05641B0F5DCE006E8990 /* CDALockErrorPrivate.m */,
 				6EDA05681B0F68D6006E8990 /* Controller */,
 				6EDA055F1B0E86DB006E8990 /* Model */,
 			);

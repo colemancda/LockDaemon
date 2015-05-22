@@ -120,7 +120,7 @@
         }
         
         
-        
+        [self.delegate lockCommandManager:self didRecieveLockCommand:command];
     });
 }
 
