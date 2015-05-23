@@ -41,8 +41,8 @@
 
 #pragma mark - Methods
 
-/** Asks the manager to start to connecting to the server. */
--(BOOL)startRequestsWithError:(NSError **)error;
+/** Asks the manager to start to connecting to the server. Make sure the lock command manager is properly configured or this will raise an exception. */
+-(void)startRequests;
 
 /** Stops communication with the server. */
 -(void)stopRequests;
@@ -53,6 +53,6 @@
 
 -(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager didRecieveLockCommand:(CDALockCommand *)lockCommand;
 
--(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager didEncounterError:(NSError *)error;
+-(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager errorReceivingLockCommand:(NSError *)error;
 
 @end

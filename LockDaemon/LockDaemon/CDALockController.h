@@ -10,6 +10,13 @@
 #import "CDALockSetupManager.h"
 #import "CDALockCommandManager.h"
 
+typedef NS_ENUM(NSInteger, CDALockMode) {
+    
+    CDALockModeSetup,
+    CDALockModeCommandReceiver,
+    CDALockModeError
+};
+
 /** Main controller for the lock. */
 @interface CDALockController : NSObject <CDALockCommandManagerDelegate, CDALockSetupManagerDelegate>
 
@@ -19,8 +26,14 @@
 
 @property (nonatomic, readonly) CDALockCommandManager *commandManager;
 
+@property (nonatomic) CDALockMode lockMode;
+
 #pragma mark - Initialization
 
 +(instancetype)sharedController;
+
+#pragma mark - Methods
+
+-(void)loadController;
 
 @end

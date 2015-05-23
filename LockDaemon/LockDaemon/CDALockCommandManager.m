@@ -14,7 +14,7 @@
 
 @interface CDALockCommandManager ()
 
-@property BOOL isPolling;
+@property (atomic) BOOL isPolling;
 
 @property (nonatomic) NSDateFormatter *HTTPDateFormatter;
 
@@ -42,19 +42,19 @@
 
 #pragma mark - Methods
 
--(BOOL)startRequestsWithError:(NSError *__autoreleasing *)error
+-(void)startRequests
 {
     if (self.isPolling) {
         
-        return true;
+        return;
     }
     
     // missing info
     if (_serverURL == nil || _secret == nil || _lockIdentifier == nil || !_requestInterval) {
         
-        *error = [NSError CDALockErrorWithErrorCode:CDALockErrorCodeInvalidSettings userInfo:nil];
+        [NSException raise:NSInternalInconsistencyException format:@"Must properly configure CDALockCommandManager before calling '%@'", NSStringFromSelector(_cmd)];
         
-        return false;
+        return;
     }
     
     // create timer
@@ -64,12 +64,10 @@
                                                    selector:@selector(performRequest)
                                                    userInfo:nil
                                                     repeats:YES];
-    
-    NSLog(@"Polling server for lock commands every %.1f seconds...", _requestInterval);
-    
+        
     self.isPolling = YES;
     
-    return true;
+    return;
 }
 
 -(void)stopRequests
@@ -114,7 +112,7 @@
         
         if (fetchCommandError != nil) {
             
-            [self.delegate lockCommandManager:self didEncounterError:fetchCommandError];
+            [self.delegate lockCommandManager:self errorReceivingLockCommand:fetchCommandError];
             
             return;
         }
@@ -136,11 +134,11 @@
     
     CDAAuthenticationContext *authenticationContext = [[CDAAuthenticationContext alloc] initWithURLRequest:request];
     
-    CDAAuthenticationToken *authenticationToken = [[CDAAuthenticationToken alloc] initWithIdentifier:identifier.integerValue secret:secret context:authenticationContext];
+    CDAAuthenticationToken *authenticationToken = [[CDAAuthenticationToken alloc] initWithIdentifier:lockIdentifier secret:secret context:authenticationContext];
     
     [request addValue:authenticationToken.token forHTTPHeaderField:@"Authentication"];
     
-    request.timeoutInterval = timeout;
+    request.timeoutInterval = timeoutInterval;
     
     // perform request
     
@@ -152,9 +150,9 @@
     
     if (requestError != nil) {
         
-        NSLog(@"Could not fetch lock commands from server. (%@)", requestError);
+        [self.delegate lockCommandManager:self errorReceivingLockCommand:requestError];
         
-        return;
+        return nil;
     }
     
     NSError *parseError;
@@ -163,7 +161,7 @@
     
     if (parseError != nil) {
         
-        NSLog(@"Could not fetch lock commands from server. (%@)", parseError);
+        [self.delegate lockCommandManager:self errorReceivingLockCommand:parseError];
         
         return;
     }

@@ -56,29 +56,64 @@ static void *KVOContext = &KVOContext;
     return sharedInstance;
 }
 
+#pragma mark - KVO
+
+
+
+#pragma mark - Methods
+
+
+
 #pragma mark - Private Methods
 
 -(void)loadController
 {
+    NSLog(@"Loading Lock Controller...");
+    
     // load settings
     
-    [self observeValueForKeyPath:NSStringFromSelector(@selector(<#selector#>))
-                        ofObject:<#(id)#>
-                          change:@{NSKeyValueObservingOptionInitial, }
-                         context:KVOContext];
-    
+    // start setup mode if
     if (!self.setupManager.isConfigured) {
+        
+        NSLog(@"Settings not configured, enabling setup mode");
         
         NSError *enableSetupError;
         
         if (![self.setupManager enableSetupModeWithError:&enableSetupError]) {
             
+            NSLog(@"Error enabling setup mode (%@)", enableSetupError);
             
+            return;
         }
+        
+        NSLog(@"Setup mode enabled");
+        
+        return;
     }
     
 }
 
--(void)
+-(void)displayError
+{
+    NSLog(@"Error occurred, lock needs maintainance.");
+    
+    NSLog(@"Blinking red LED...");
+}
+
+#pragma mark - CDALockCommandManagerDelegate
+
+-(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager didRecieveLockCommand:(CDALockCommand *)lockCommand
+{
+    NSLog(@"Recieved lock command: %@", lockCommand);
+}
+
+-(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager errorReceivingLockCommand:(NSError *)error
+{
+    NSLog(@"Could not fetch lock commands from server. (%@)", error);
+}
+
+#pragma mark - CDALockSetupManagerDelegate
+
+
 
 @end
