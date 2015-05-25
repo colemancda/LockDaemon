@@ -101,7 +101,10 @@
 {
     // load settings
     
-    NSArray *settings = @[CDALockSettingIdentifierKey, CDALockSettingSecretKey, CDALockSettingRequestIntervalKey, CDALockSettingServerURLKey];
+    NSArray *settings = @[CDALockSettingIdentifierKey,
+                          CDALockSettingSecretKey,
+                          CDALockSettingRequestIntervalKey,
+                          CDALockSettingServerURLKey];
     
     for (NSString *settingKey in settings) {
         

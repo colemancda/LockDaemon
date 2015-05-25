@@ -10,6 +10,7 @@
 #import "CDALockCommandManager.h"
 #import "CDALockSetupManager.h"
 #import "CDALockDefines.h"
+#import "CDALockCommand.h"
 
 static void *KVOContext = &KVOContext;
 
@@ -173,15 +174,15 @@ static void *KVOContext = &KVOContext;
 {
     // load settings
     
-    self.commandManager.requestInterval = [[self.setupManager valueForKey:CDALockSettingRequestIntervalKey] doubleValue];
+    self.commandManager.requestInterval = [[self.setupManager valueForSetting:CDALockSettingRequestIntervalKey] doubleValue];
     
-    NSString *serverURLString = [self.setupManager valueForKey:CDALockSettingServerURLKey];
+    NSString *serverURLString = [self.setupManager valueForSetting:CDALockSettingServerURLKey];
     
     self.commandManager.serverURL = [NSURL URLWithString:serverURLString];
     
-    self.commandManager.secret = [self.setupManager valueForKey:CDALockSettingSecretKey];
+    self.commandManager.secret = [self.setupManager valueForSetting:CDALockSettingSecretKey];
     
-    self.commandManager.lockIdentifier = [self.setupManager valueForKey:CDALockSettingIdentifierKey];
+    self.commandManager.lockIdentifier = [self.setupManager valueForSetting:CDALockSettingIdentifierKey];
     
     // start polling server
     
@@ -201,6 +202,18 @@ static void *KVOContext = &KVOContext;
 -(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager didRecieveLockCommand:(CDALockCommand *)lockCommand
 {
     NSLog(@"Recieved lock command: %@", lockCommand);
+    
+    if (lockCommand.shouldUpdate) {
+        
+        // attempt to update
+    }
+    
+    if (lockCommand.shouldUnlock) {
+        
+        NSLog(@"Will unlock...");
+        
+        
+    }
 }
 
 -(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager errorReceivingLockCommand:(NSError *)error

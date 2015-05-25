@@ -11,6 +11,7 @@
 		6E238B351B0CDB62000D85EB /* CDALockCommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E238B341B0CDB62000D85EB /* CDALockCommandManager.m */; };
 		6E238B381B0CE294000D85EB /* CDALockError.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E238B371B0CE294000D85EB /* CDALockError.m */; };
 		6E238B591B0D0F70000D85EB /* CDAAuthenticationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E238B581B0D0F70000D85EB /* CDAAuthenticationToken.m */; };
+		6E5610301B13AD540018CBCB /* CDALockUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E56102F1B13AD540018CBCB /* CDALockUpdateManager.m */; };
 		6E5A25111B0CBB7500938B49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A25101B0CBB7500938B49 /* main.m */; };
 		6E5A25191B0CBD4700938B49 /* CDALockDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A25181B0CBD4700938B49 /* CDALockDevice.m */; };
 		6E5A251C1B0CC17D00938B49 /* CDALockDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A251B1B0CC17D00938B49 /* CDALockDefines.m */; };
@@ -43,6 +44,8 @@
 		6E238B371B0CE294000D85EB /* CDALockError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockError.m; sourceTree = "<group>"; };
 		6E238B571B0D0F70000D85EB /* CDAAuthenticationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDAAuthenticationToken.h; sourceTree = "<group>"; };
 		6E238B581B0D0F70000D85EB /* CDAAuthenticationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDAAuthenticationToken.m; sourceTree = "<group>"; };
+		6E56102E1B13AD540018CBCB /* CDALockUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDALockUpdateManager.h; sourceTree = "<group>"; };
+		6E56102F1B13AD540018CBCB /* CDALockUpdateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDALockUpdateManager.m; sourceTree = "<group>"; };
 		6E5A250D1B0CBB7500938B49 /* LockDaemon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LockDaemon; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E5A25101B0CBB7500938B49 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6E5A25171B0CBD4700938B49 /* CDALockDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDALockDevice.h; sourceTree = "<group>"; };
@@ -170,6 +173,8 @@
 				6E238B341B0CDB62000D85EB /* CDALockCommandManager.m */,
 				6EDA056D1B0F79D5006E8990 /* CDALockSetupManager.h */,
 				6EDA056E1B0F79D5006E8990 /* CDALockSetupManager.m */,
+				6E56102E1B13AD540018CBCB /* CDALockUpdateManager.h */,
+				6E56102F1B13AD540018CBCB /* CDALockUpdateManager.m */,
 			);
 			name = Store;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E5A25111B0CBB7500938B49 /* main.m in Sources */,
+				6E5610301B13AD540018CBCB /* CDALockUpdateManager.m in Sources */,
 				6E238B381B0CE294000D85EB /* CDALockError.m in Sources */,
 				6E238B351B0CDB62000D85EB /* CDALockCommandManager.m in Sources */,
 				6E5A25191B0CBD4700938B49 /* CDALockDevice.m in Sources */,

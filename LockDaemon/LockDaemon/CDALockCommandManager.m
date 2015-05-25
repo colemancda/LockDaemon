@@ -140,26 +140,18 @@
     
     // perform request
     
-    NSError *requestError;
-    
     NSURLResponse *response;
     
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&requestError];
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error];
     
-    if (requestError != nil) {
-        
-        [self.delegate lockCommandManager:self errorReceivingLockCommand:requestError];
+    if (error != nil) {
         
         return nil;
     }
     
-    NSError *parseError;
+    CDALockCommand *lockCommand = [self parseServerResponse:response data:data error:error];
     
-    CDALockCommand *lockCommand = [self parseServerResponse:response data:data error:&parseError];
-    
-    if (parseError != nil) {
-        
-        [self.delegate lockCommandManager:self errorReceivingLockCommand:parseError];
+    if (error != nil) {
         
         return nil;
     }
