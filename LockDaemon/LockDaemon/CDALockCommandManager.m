@@ -11,6 +11,7 @@
 #import "CDALockError.h"
 #import "CDAAuthenticationToken.h"
 #import "CDALockErrorPrivate.h"
+#import "CDALockCommand.h"
 
 @interface CDALockCommandManager ()
 
@@ -82,8 +83,6 @@
     _requestTimer = nil;
     
     self.isPolling = false;
-    
-    NSLog(@"Stopped polling server for lock commands");
 }
 
 #pragma mark - Private Methods
@@ -116,7 +115,6 @@
             
             return;
         }
-        
         
         [self.delegate lockCommandManager:self didRecieveLockCommand:command];
     });
@@ -157,43 +155,56 @@
     
     NSError *parseError;
     
-    NSArray *lockCommands = [self parseServerResponse:response data:data error:&parseError];
+    CDALockCommand *lockCommand = [self parseServerResponse:response data:data error:&parseError];
     
     if (parseError != nil) {
         
         [self.delegate lockCommandManager:self errorReceivingLockCommand:parseError];
         
-        return;
+        return nil;
     }
     
-
+    return lockCommand;
 }
 
--(NSArray *)parseServerResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError **)error
+-(CDALockCommand *)parseServerResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError **)error
 {
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     
     if ([httpResponse isKindOfClass:[NSHTTPURLResponse class]]) {
         
-        
+        *error = [NSError CDALockErrorWithErrorCode:CDALockErrorCodeInvalidServerResponse userInfo:nil];
         
         return nil;
     }
     
     if (httpResponse.statusCode != 200) {
         
-        *error = [NSError errorWithDomain:CDALockErrorDomain code:CDALockErrorCodeInvalidServerStatusCode userInfo:@{NSLocalizedDescriptionKey: @"Invalid status code returned from server.", CDALockServerStatusCodeKey: [NSNumber numberWithInteger:httpResponse.statusCode]}];
+        *error = [NSError CDALockErrorWithErrorCode:CDALockErrorCodeInvalidServerStatusCode userInfo:@{CDALockServerStatusCodeKey: @(httpResponse.statusCode)}];
         
         return nil;
     }
     
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
+    if (![jsonObject isKindOfClass:[NSDictionary class]]) {
+        
+        *error = [NSError CDALockErrorWithErrorCode:CDALockErrorCodeInvalidServerResponse userInfo:nil];
+        
+        return nil;
+    }
     
+    CDALockCommand *lockCommand = [[CDALockCommand alloc] initWithJSONObject:jsonObject];
+    
+    if (lockCommand == nil) {
+        
+        *error = [NSError CDALockErrorWithErrorCode:CDALockErrorCodeInvalidServerResponse userInfo:nil];
+        
+        return nil;
+    }
+    
+    return lockCommand;
 }
-
-#pragma mark - Error Generators
-
--(NSError *)invalidStatusCode
 
 @end
 

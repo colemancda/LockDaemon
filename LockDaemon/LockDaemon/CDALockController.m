@@ -9,6 +9,7 @@
 #import "CDALockController.h"
 #import "CDALockCommandManager.h"
 #import "CDALockSetupManager.h"
+#import "CDALockDefines.h"
 
 static void *KVOContext = &KVOContext;
 
@@ -18,11 +19,20 @@ static void *KVOContext = &KVOContext;
 
 @property (nonatomic) CDALockCommandManager *commandManager;
 
+@property (nonatomic) CDALockMode lockMode;
+
 @end
 
 @implementation CDALockController
 
 #pragma mark - Initialization
+
+- (void)dealloc
+{
+    [self removeObserver:self
+              forKeyPath:NSStringFromSelector(@selector(lockMode))
+                 context:KVOContext];
+}
 
 - (instancetype)init
 {
@@ -43,7 +53,7 @@ static void *KVOContext = &KVOContext;
     return self;
 }
 
-+ (instancetype)sharedStore
++ (instancetype)sharedController
 {
     static CDALockController *sharedInstance = nil;
     
@@ -58,7 +68,19 @@ static void *KVOContext = &KVOContext;
 
 #pragma mark - KVO
 
-
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == KVOContext) {
+        
+        if ([keyPath isEqualToString:NSStringFromSelector(@selector(lockMode))]) {
+            
+            [self loadLockMode:self.lockMode];
+        }
+        
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 
 #pragma mark - Methods
 
@@ -70,27 +92,74 @@ static void *KVOContext = &KVOContext;
 {
     NSLog(@"Loading Lock Controller...");
     
-    // load settings
+    // KVO
     
-    // start setup mode if
+    [self addObserver:self
+           forKeyPath:NSStringFromSelector(@selector(lockMode))
+              options:NSKeyValueObservingOptionNew
+              context:KVOContext];
+    
+    // start setup mode if lock is configured
     if (!self.setupManager.isConfigured) {
         
-        NSLog(@"Settings not configured, enabling setup mode");
-        
-        NSError *enableSetupError;
-        
-        if (![self.setupManager enableSetupModeWithError:&enableSetupError]) {
-            
-            NSLog(@"Error enabling setup mode (%@)", enableSetupError);
-            
-            return;
-        }
-        
-        NSLog(@"Setup mode enabled");
-        
-        return;
+        self.lockMode = CDALockModeSetup;
     }
     
+    // else, start 
+    else {
+        
+        self.lockMode = CDALockModeCommandReceiver;
+    }
+    
+}
+
+-(void)loadLockMode:(CDALockMode)lockMode
+{
+    NSString *lockModeName;
+    
+    switch (lockMode) {
+            
+        case CDALockModeSetup:
+            
+            lockModeName = @"Setup";
+            
+            break;
+            
+        case CDALockModeCommandReceiver:
+            
+            lockModeName = @"Command Reciever";
+            
+            break;
+            
+        case CDALockModeFatalError:
+            
+            lockModeName = @"Error";
+            
+            break;
+    }
+    
+    NSLog(@"Set Lock Mode to %@", lockModeName);
+    
+    switch (lockMode) {
+            
+        case CDALockModeFatalError:
+            
+            [self displayError];
+            
+            break;
+            
+        case CDALockModeCommandReceiver:
+            
+            [self recieveCommands];
+            
+            break;
+            
+        case CDALockModeSetup:
+            
+            [self enableSetupMode];
+            
+            break;
+    }
 }
 
 -(void)displayError
@@ -98,6 +167,33 @@ static void *KVOContext = &KVOContext;
     NSLog(@"Error occurred, lock needs maintainance.");
     
     NSLog(@"Blinking red LED...");
+}
+
+-(void)recieveCommands
+{
+    // load settings
+    
+    self.commandManager.requestInterval = [[self.setupManager valueForKey:CDALockSettingRequestIntervalKey] doubleValue];
+    
+    NSString *serverURLString = [self.setupManager valueForKey:CDALockSettingServerURLKey];
+    
+    self.commandManager.serverURL = [NSURL URLWithString:serverURLString];
+    
+    self.commandManager.secret = [self.setupManager valueForKey:CDALockSettingSecretKey];
+    
+    self.commandManager.lockIdentifier = [self.setupManager valueForKey:CDALockSettingIdentifierKey];
+    
+    // start polling server
+    
+    NSLog(@"Polling server for lock commands every %.1f seconds...", self.commandManager.requestInterval);
+    
+    [self.commandManager startRequests];
+}
+
+-(void)enableSetupMode
+{
+    
+    
 }
 
 #pragma mark - CDALockCommandManagerDelegate
@@ -110,10 +206,17 @@ static void *KVOContext = &KVOContext;
 -(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager errorReceivingLockCommand:(NSError *)error
 {
     NSLog(@"Could not fetch lock commands from server. (%@)", error);
+    
+    // set LED to orange
+    
+    
 }
 
 #pragma mark - CDALockSetupManagerDelegate
 
-
+-(void)setupManager:(CDALockSetupManager *)setupManager didReceiveValidValues:(BOOL)validValues
+{
+    
+}
 
 @end

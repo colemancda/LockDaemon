@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, CDALockMode) {
     
     CDALockModeSetup,
     CDALockModeCommandReceiver,
-    CDALockModeError
+    CDALockModeFatalError
 };
 
 /** Main controller for the lock. */
@@ -26,14 +26,10 @@ typedef NS_ENUM(NSInteger, CDALockMode) {
 
 @property (nonatomic, readonly) CDALockCommandManager *commandManager;
 
-@property (nonatomic) CDALockMode lockMode;
+@property (nonatomic, readonly) CDALockMode lockMode;
 
 #pragma mark - Initialization
 
 +(instancetype)sharedController;
-
-#pragma mark - Methods
-
--(void)loadController;
 
 @end

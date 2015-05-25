@@ -14,10 +14,10 @@
 @interface CDALockSetupManager : NSObject
 
 /** Whether setup mode is enabled. */
-@property (nonatomic, readonly) BOOL isSetupModeEnabled;
+@property (atomic, readonly) BOOL isSetupModeEnabled;
 
 /** Whether the settings have been fully configured. */
-@property (nonatomic, readonly) BOOL isConfigured;
+@property (atomic, readonly) BOOL isConfigured;
 
 /** Manager's delegate. */
 @property (nonatomic) id<CDALockSetupManagerDelegate> delegate;

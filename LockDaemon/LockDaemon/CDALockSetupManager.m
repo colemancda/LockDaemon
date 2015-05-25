@@ -11,9 +11,9 @@
 
 @interface CDALockSetupManager ()
 
-@property (nonatomic) BOOL isSetupModeEnabled;
+@property (atomic) BOOL isSetupModeEnabled;
 
-@property (nonatomic) BOOL isConfigured;
+@property (atomic) BOOL isConfigured;
 
 @end
 
@@ -112,6 +112,13 @@
     }
     
     return YES;
+}
+
+-(NSError *)enableAccessPointMode
+{
+    
+    
+    return nil;
 }
 
 @end
