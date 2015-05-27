@@ -12,6 +12,7 @@
 #import "CDAAuthenticationToken.h"
 #import "CDALockErrorPrivate.h"
 #import "CDALockCommand.h"
+#import "CDALockDevice.h"
 
 @interface CDALockCommandManager ()
 
@@ -134,7 +135,11 @@
     
     CDAAuthenticationToken *authenticationToken = [[CDAAuthenticationToken alloc] initWithIdentifier:lockIdentifier secret:secret context:authenticationContext];
     
-    [request addValue:authenticationToken.token forHTTPHeaderField:@"Authentication"];
+    [request addValue:authenticationToken.token forHTTPHeaderField:@"Authorization"];
+    
+    [request addValue:[NSString stringWithFormat:@"%@", [CDALockDevice currentDevice].firmwareBuild] forHTTPHeaderField:@"x-cerradura-firmware"];
+    
+    [request addValue:CDALockDaemonVersion forHTTPHeaderField:@"x-cerradura-version"];
     
     request.timeoutInterval = timeoutInterval;
     

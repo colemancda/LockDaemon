@@ -4,7 +4,7 @@
 <dict>
 	<key>LockModel</key>
 	<string>Simulator</string>
-	<key>FirmwareVersion</key>
+	<key>FirmwareBuild</key>
 	<integer>100</integer>
 </dict>
 </plist>

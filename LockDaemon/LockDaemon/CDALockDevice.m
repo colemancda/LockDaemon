@@ -12,7 +12,7 @@
 
 @property (nonatomic) NSString *model;
 
-@property (nonatomic) NSNumber *firmwareVersion;
+@property (nonatomic) NSNumber *firmwareBuild;
 
 @property (nonatomic) NSString *lockInfoPath;
 
@@ -45,9 +45,9 @@
         
         self.model = lockInfoDictionary[@"LockModel"];
         
-        self.firmwareVersion = lockInfoDictionary[@"FirmwareVersion"];
+        self.firmwareBuild = lockInfoDictionary[@"FirmwareBuild"];
         
-        if (lockInfoDictionary == nil || self.model == nil || self.firmwareVersion == nil) {
+        if (lockInfoDictionary == nil || self.model == nil || self.firmwareBuild == nil) {
             
             [NSException raise:NSInternalInconsistencyException format:@"Could not load lock info from %@", self.lockInfoPath];
             

@@ -16,10 +16,9 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         // load and print device info
-        NSLog(@"Starting Lock Daemon v%@\nModel: %@\nFirmware Version: %@\n", CDALockDaemonVersion, [CDALockDevice currentDevice].model, [CDALockDevice currentDevice].firmwareVersion);
+        NSLog(@"Starting Lock Daemon v%@\nModel: %@\nFirmware Build: %@\n", CDALockDaemonVersion, [CDALockDevice currentDevice].model, [CDALockDevice currentDevice].firmwareBuild);
         
         // start lock controller
-        
         [CDALockController sharedController];
     }
     

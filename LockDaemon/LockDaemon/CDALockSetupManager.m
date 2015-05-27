@@ -34,8 +34,13 @@
                                        CDALockSettingSecretKey: @"LockSecret1234",
                                        CDALockSettingServerURLKey: @"http://localhost:8080"};
         
-        [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaults];
+#else
+        
+        NSDictionary *userDefaults = @{CDALockSettingRequestIntervalKey: @1.0};
+        
 #endif
+        
+        [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaults];
         
     }
 }
