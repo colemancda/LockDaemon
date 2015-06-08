@@ -10,12 +10,19 @@
 #import "CDALockSetupManager.h"
 #import "CDALockCommandManager.h"
 
-typedef NS_ENUM(NSInteger, CDALockMode) {
+/** Modes for the lock device. */
+typedef enum {
     
+    /** The lock device is in setup mode. */
     CDALockModeSetup,
+    
+    /** The lock device is in command reciever mode. */
     CDALockModeCommandReceiver,
+    
+    /** The lock device is in fatal error mode. */
     CDALockModeFatalError
-};
+    
+} CDALockMode;
 
 /** Main controller for the lock. */
 @interface CDALockController : NSObject <CDALockCommandManagerDelegate, CDALockSetupManagerDelegate>
