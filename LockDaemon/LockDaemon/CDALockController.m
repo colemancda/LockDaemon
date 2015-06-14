@@ -201,6 +201,14 @@ static void *KVOContext = &KVOContext;
 
 -(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager didRecieveLockCommand:(CDALockCommand *)lockCommand
 {
+    if (_lastError) {
+        
+        NSLog(@"Reconnected to server");
+    }
+    
+    // clear last error
+    _lastError = nil;
+    
     if (lockCommand.shouldUpdate) {
         
         // attempt to update
@@ -211,8 +219,6 @@ static void *KVOContext = &KVOContext;
     if (lockCommand.shouldUnlock) {
         
         NSLog(@"Will unlock...");
-        
-        
     }
 }
 
