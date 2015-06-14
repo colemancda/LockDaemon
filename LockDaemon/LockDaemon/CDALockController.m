@@ -201,11 +201,11 @@ static void *KVOContext = &KVOContext;
 
 -(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager didRecieveLockCommand:(CDALockCommand *)lockCommand
 {
-    NSLog(@"Recieved lock command: %@", lockCommand);
-    
     if (lockCommand.shouldUpdate) {
         
         // attempt to update
+        
+        NSLog(@"Will update...");
     }
     
     if (lockCommand.shouldUnlock) {
@@ -218,7 +218,13 @@ static void *KVOContext = &KVOContext;
 
 -(void)lockCommandManager:(CDALockCommandManager *)lockCommandManager errorReceivingLockCommand:(NSError *)error
 {
-    NSLog(@"Could not fetch lock commands from server. (%@)", error);
+    // only print new errors
+    if (_lastError == nil || (_lastError.domain != error.domain || _lastError.code != error.code)) {
+        
+        NSLog(@"Could not fetch lock commands from server. (%@)", error);
+    }
+    
+    _lastError = error;
     
     // set LED to orange
     

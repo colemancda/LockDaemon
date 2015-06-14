@@ -26,6 +26,9 @@ typedef enum {
 
 /** Main controller for the lock. */
 @interface CDALockController : NSObject <CDALockCommandManagerDelegate, CDALockSetupManagerDelegate>
+{
+    NSError *_lastError;
+}
 
 #pragma mark - Properties
 
