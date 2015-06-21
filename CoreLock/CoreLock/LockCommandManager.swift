@@ -19,5 +19,5 @@ public protocol LockCommandManager {
 
 public protocol LockCommandManagerDelegate: class {
     
-    func commandManager(manager: LockCommandManager, didRecieveCommand: LockCommand?, error: ErrorType?)
+    func commandManager(manager: LockCommandManager, didRecieveCommand command: LockCommand?, error: ErrorType?)
 }
