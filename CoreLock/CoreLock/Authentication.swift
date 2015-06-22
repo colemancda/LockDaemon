@@ -17,6 +17,11 @@ public extension AuthenticationContext {
     /// - Returns: The generated authentication token.
     func generateToken(identifier: String, secret: String) -> String {
         
+        var context: EVP_MD_CTX?
+        
+        EVP_MD_CTX_init(&context)
+        EVP_DigestInit_ex(&context, EVP_sha1(), nil)
+        
         return ""
     }
 }
