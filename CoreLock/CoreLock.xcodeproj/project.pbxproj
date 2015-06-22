@@ -117,7 +117,11 @@
 		6EC014AE1B374DAC00870C01 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6EC014C21B37DBA300870C01 /* Lock Info */,
+				6EC014A81B373AC100870C01 /* LockMode.swift */,
+				6EC014AC1B374B3000870C01 /* LockCommand.swift */,
+				6EC014AF1B374DCD00870C01 /* LockDevice.swift */,
+				6EC014B11B374EED00870C01 /* LockModel.swift */,
+				6EC014BA1B37672100870C01 /* LockSettings.swift */,
 				6EC014B41B37548A00870C01 /* RequestHeader.swift */,
 				6EC014C11B37DB9300870C01 /* Authentication */,
 			);
@@ -140,18 +144,6 @@
 				6EC014BD1B37D8D900870C01 /* HTTPAuthenticationContext.swift */,
 			);
 			name = Authentication;
-			sourceTree = "<group>";
-		};
-		6EC014C21B37DBA300870C01 /* Lock Info */ = {
-			isa = PBXGroup;
-			children = (
-				6EC014A81B373AC100870C01 /* LockMode.swift */,
-				6EC014AC1B374B3000870C01 /* LockCommand.swift */,
-				6EC014AF1B374DCD00870C01 /* LockDevice.swift */,
-				6EC014B11B374EED00870C01 /* LockModel.swift */,
-				6EC014BA1B37672100870C01 /* LockSettings.swift */,
-			);
-			name = "Lock Info";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -460,6 +452,7 @@
 				6EC014A21B37381800870C01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6EC014A31B37381800870C01 /* Build configuration list for PBXNativeTarget "CoreLockTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +461,7 @@
 				6EC014A51B37381800870C01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
