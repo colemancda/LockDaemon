@@ -6,14 +6,9 @@
 //  Copyright © 2015 ColemanCDA. All rights reserved.
 //
 
-/** Provides the context for authorization. Public information only. */
-public struct AuthenticationContext {
+/** Provides the context for authentication. Public information only. */
+public protocol AuthenticationContext {
     
-    // MARK: - Properties
-    
-    public let verb: String
-    
-    public let path: String
-    
-    public let dateString: String
+    /** String formed by cocatenating the values of the authentication context. */
+    var concatenatedString: String { get }
 }

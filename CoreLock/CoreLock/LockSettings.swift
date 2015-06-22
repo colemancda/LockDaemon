@@ -6,14 +6,18 @@
 //  Copyright © 2015 ColemanCDA. All rights reserved.
 //
 
-/** The setting key for the lock. */
-public enum LockSettingKey: String {
+/** Encapsulates all of the required settings for the lock */
+public struct LockSettings {
     
-    case ServerURL = "ServerURL"
+    public let ServerURL: String
     
-    case LockIdentifier = "LockIdentifier"
+    public let LockIdentifier: UInt
     
-    case Secret = "Secret"
-
-    case RequestInterval = "RequestInterval"
+    public let Secret: String
+    
+    public let RequestInterval: Double
+    
+    public let NetworkSSID: String
+    
+    public let NetworkSecret: String
 }

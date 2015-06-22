@@ -20,6 +20,8 @@
 		6EC014B71B375B8100870C01 /* AuthenticationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC014B61B375B8100870C01 /* AuthenticationContext.swift */; };
 		6EC014B91B375E3F00870C01 /* Define.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC014B81B375E3F00870C01 /* Define.swift */; };
 		6EC014BB1B37672100870C01 /* LockSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC014BA1B37672100870C01 /* LockSettings.swift */; };
+		6EC014BE1B37D8D900870C01 /* HTTPAuthenticationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC014BD1B37D8D900870C01 /* HTTPAuthenticationContext.swift */; };
+		6EC014C01B37DB7E00870C01 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC014BF1B37DB7E00870C01 /* Authentication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		6EC014B61B375B8100870C01 /* AuthenticationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationContext.swift; sourceTree = "<group>"; };
 		6EC014B81B375E3F00870C01 /* Define.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Define.swift; sourceTree = "<group>"; };
 		6EC014BA1B37672100870C01 /* LockSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LockSettings.swift; sourceTree = "<group>"; };
+		6EC014BD1B37D8D900870C01 /* HTTPAuthenticationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPAuthenticationContext.swift; sourceTree = "<group>"; };
+		6EC014BF1B37DB7E00870C01 /* Authentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,13 +117,9 @@
 		6EC014AE1B374DAC00870C01 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6EC014A81B373AC100870C01 /* LockMode.swift */,
-				6EC014AC1B374B3000870C01 /* LockCommand.swift */,
-				6EC014AF1B374DCD00870C01 /* LockDevice.swift */,
-				6EC014B11B374EED00870C01 /* LockModel.swift */,
+				6EC014C21B37DBA300870C01 /* Lock Info */,
 				6EC014B41B37548A00870C01 /* RequestHeader.swift */,
-				6EC014B61B375B8100870C01 /* AuthenticationContext.swift */,
-				6EC014BA1B37672100870C01 /* LockSettings.swift */,
+				6EC014C11B37DB9300870C01 /* Authentication */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -130,6 +130,28 @@
 				6EC014AA1B373C9F00870C01 /* LockCommandManager.swift */,
 			);
 			name = "Functionality Protocols";
+			sourceTree = "<group>";
+		};
+		6EC014C11B37DB9300870C01 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				6EC014BF1B37DB7E00870C01 /* Authentication.swift */,
+				6EC014B61B375B8100870C01 /* AuthenticationContext.swift */,
+				6EC014BD1B37D8D900870C01 /* HTTPAuthenticationContext.swift */,
+			);
+			name = Authentication;
+			sourceTree = "<group>";
+		};
+		6EC014C21B37DBA300870C01 /* Lock Info */ = {
+			isa = PBXGroup;
+			children = (
+				6EC014A81B373AC100870C01 /* LockMode.swift */,
+				6EC014AC1B374B3000870C01 /* LockCommand.swift */,
+				6EC014AF1B374DCD00870C01 /* LockDevice.swift */,
+				6EC014B11B374EED00870C01 /* LockModel.swift */,
+				6EC014BA1B37672100870C01 /* LockSettings.swift */,
+			);
+			name = "Lock Info";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,9 +269,11 @@
 				6EC014AB1B373C9F00870C01 /* LockCommandManager.swift in Sources */,
 				6EC014B71B375B8100870C01 /* AuthenticationContext.swift in Sources */,
 				6EC014B51B37548A00870C01 /* RequestHeader.swift in Sources */,
+				6EC014BE1B37D8D900870C01 /* HTTPAuthenticationContext.swift in Sources */,
 				6EC014A71B373A8C00870C01 /* LockController.swift in Sources */,
 				6EC014B01B374DCD00870C01 /* LockDevice.swift in Sources */,
 				6EC014A91B373AC100870C01 /* LockMode.swift in Sources */,
+				6EC014C01B37DB7E00870C01 /* Authentication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
